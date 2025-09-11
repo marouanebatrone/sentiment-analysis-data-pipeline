@@ -69,7 +69,6 @@ class MongoDBHandler:
             raise MongoDBError(f"Insert failed: {e}")
     
     def create_indexes(self):
-        """Create necessary indexes"""
         try:
             raw_collection = self.get_collection(self.config.COLLECTION_RAW)
             raw_collection.create_index([('article.url', 1)], unique=True, background=True)

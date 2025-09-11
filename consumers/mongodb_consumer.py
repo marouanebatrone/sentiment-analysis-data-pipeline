@@ -9,7 +9,6 @@ from utilities.logger_config import setup_logger
 from utilities.error_handler import retry_on_failure, KafkaError, MongoDBError
 
 class MongoDBConsumer:
-    
     def __init__(self):
         self.logger = setup_logger('MongoDBConsumer', 'consumer.log')
         self.consumer = None
@@ -37,7 +36,6 @@ class MongoDBConsumer:
     
     @retry_on_failure(max_retries=3)
     def process_message(self, message):
-        """Process individual Kafka message"""
         try:
             data = message.value
             
@@ -83,7 +81,6 @@ class MongoDBConsumer:
             self.cleanup()
     
     def shutdown(self, signum, frame):
-        """Graceful shutdown handler"""
         self.logger.info("Shutdown signal received, stopping consumer...")
         self.running = False
     
@@ -101,7 +98,7 @@ if __name__ == "__main__":
     try:
         consumer.run()
     except KeyboardInterrupt:
-        consumer.logger.info("Consumer stopped by user")
+        consumer.logger.info("Consumer stopped")
     except Exception as e:
         consumer.logger.error(f"Consumer failed: {e}")
         sys.exit(1)

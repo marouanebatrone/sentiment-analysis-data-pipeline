@@ -22,32 +22,21 @@ class ProducerManager:
         self.newsapi_producer = None
         self.gnews_producer = None
         self.running = True
-        
         self.interval = int(os.getenv('PRODUCER_INTERVAL_SECONDS', 300))
     
     def setup_producers(self):
-        try:
-            self.logger.info("Setting up producers...")
-            self.newsapi_producer = NewsAPIProducer()
-            self.gnews_producer = GNewsProducer()
-            self.logger.info("Producers setup completed")
-        except Exception as e:
-            self.logger.error(f"Producer setup failed: {e}")
-            raise
+        self.logger.info("Setting up producers...")
+        self.newsapi_producer = NewsAPIProducer()
+        self.gnews_producer = GNewsProducer()
+        self.logger.info("Producers setup completed")
     
     def run_newsapi_producer(self):
-        try:
-            self.logger.info("Running NewsAPI producer...")
-            self.newsapi_producer.process_and_send()
-        except Exception as e:
-            self.logger.error(f"NewsAPI producer error: {e}")
+        self.logger.info("Running NewsAPI producer...")
+        self.newsapi_producer.process_and_send()
     
     def run_gnews_producer(self):
-        try:
-            self.logger.info("Running GNews producer...")
-            self.gnews_producer.process_and_send()
-        except Exception as e:
-            self.logger.error(f"GNews producer error: {e}")
+        self.logger.info("Running GNews producer...")
+        self.gnews_producer.process_and_send()
     
     def schedule_producers(self):
         schedule.every(self.interval).seconds.do(self.run_newsapi_producer)
@@ -74,26 +63,14 @@ class ProducerManager:
         self.logger.info("Initial data fetch completed")
     
     def start(self):
-        try:
-            self.setup_producers()
-            
-            self.run_initial_fetch()
-            
-            self.schedule_producers()
-            
-            self.logger.info("Starting producer scheduler...")
-            self.run_scheduler()
-            
-        except KeyboardInterrupt:
-            self.logger.info("Producers stopped by user")
-            self.stop()
-        except Exception as e:
-            self.logger.error(f"Producer manager error: {e}")
-            self.stop()
+        self.setup_producers()
+        self.run_initial_fetch()
+        self.schedule_producers()
+        self.logger.info("Starting producer scheduler...")
+        self.run_scheduler()
     
     def stop(self):
         self.running = False
-        
         if self.newsapi_producer:
             self.newsapi_producer.close()
         
