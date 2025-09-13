@@ -37,8 +37,8 @@ cp .env.example .env
 
 2. **Start infrastructure**
 ```bash
-chmod +x enhanced_docker_startup.sh
-./enhanced_docker_startup.sh
+chmod +x docker_startup.sh
+./docker_startup.sh
 ```
 
 3. **Install dependencies**
