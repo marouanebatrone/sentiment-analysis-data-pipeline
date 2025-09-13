@@ -1,6 +1,6 @@
 # News sentiment analysis data pipeline
 
-This is a real-time data pipeline that fetches news articles from NewsAPI and GNews API, analyzes sentiment, and provides searchable analytics through modern data tools.
+This is a real-time data pipeline that fetches news articles from NewsAPI and GNews API, analyzes sentiment, and provides searchable analytics.
 
 ## Architecture Overview
 
